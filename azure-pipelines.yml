@@ -45,4 +45,4 @@ stages:
         azureSubscription: 'Pago pelo Uso(fa06678c-ac82-4f04-a4e9-d376c49a1bf8)'
         appType: 'webAppLinux'
         appName: 'mywebapp-free'
-        package: '$(Build.ArtifactStagingDirectory)/*.zip'
+        package: '$(Build.ArtifactStagingDirectory)/drop/*.zip'
