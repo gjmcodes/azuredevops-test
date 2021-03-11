@@ -40,10 +40,10 @@ stages:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
         ArtifactName: 'drop'
       
-
-    - task: AzureWebApp@1
+    - task: AzureRmWebAppDeployment@4
       inputs:
+        ConnectionType: 'AzureRM'
         azureSubscription: 'Pago pelo Uso(fa06678c-ac82-4f04-a4e9-d376c49a1bf8)'
         appType: 'webAppLinux'
-        appName: 'mywebapp-free'
-        package: '$(Build.ArtifactStagingDirectory)/*.zip'
+        WebAppName: 'mywebapp-free'
+        packageForLinux: '$(Build.ArtifactStagingDirectory)/**/*.zip'
