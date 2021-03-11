@@ -33,26 +33,16 @@ stages:
       inputs:
         command: 'publish'
         publishWebProjects: true
-        arguments: '--configuration Release --output $(build.artifactstagingdirectory)'
+        arguments: '--configuration Release --output $(Build.ArtifactStagingDirectory)'
         zipAfterPublish: true
-
-
-- stage: Deploy
-  displayName: 'Deploy do app'
-  dependsOn:
-  - Build
-  jobs:
-  - deployment: DeployWeb
-    displayName: 'deploy de app para web'
-  - job: Deploy  
-    pool:
-      vmImage: 'windows-latest'
-    
-    steps:
-    - task: AzureRmWebAppDeployment@4
+    - task: PublishBuildArtifacts@1
       inputs:
-        ConnectionType: 'AzureRM'
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'drop'
+        publishLocation: 'Container'
+    - task: AzureWebApp@1
+      inputs:
         azureSubscription: 'Pago pelo Uso(fa06678c-ac82-4f04-a4e9-d376c49a1bf8)'
         appType: 'webAppLinux'
-        WebAppName: 'mywebapp-free'
-        packageForLinux: '$(build.artifactstagingdirectory)/*.zip'
+        appName: 'mywebapp-free'
+        package: '$(System.DefaultWorkingDirectory)/**/*.zip'
