@@ -39,10 +39,11 @@ stages:
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
         ArtifactName: 'drop'
-        publishLocation: 'Container'
+      
+
     - task: AzureWebApp@1
       inputs:
         azureSubscription: 'Pago pelo Uso(fa06678c-ac82-4f04-a4e9-d376c49a1bf8)'
         appType: 'webAppLinux'
         appName: 'mywebapp-free'
-        package: '$(Build.ArtifactStagingDirectory)/drop/*.zip'
+        package: '$(Build.ArtifactStagingDirectory)/*.zip'
